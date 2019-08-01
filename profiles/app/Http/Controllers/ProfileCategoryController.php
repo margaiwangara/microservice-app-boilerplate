@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ProfileCategory;
 use DB;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProfileCategoryController extends Controller
 {
@@ -58,13 +59,12 @@ class ProfileCategoryController extends Controller
      */
     public function show($id)
     {
-        $category = ProfileCategory::find($id);
+        try{
+            $category = ProfileCategory::findOrFail($id);
 
-        if(is_null($category)){
+        }catch(ModelNotFoundException $e){
             return response()->json([
-                'errors' => [
-                    'message' => 'Resource Not Found'
-                ]
+                'message' => 'Resource Not Found'
             ], 404);
         }
 
@@ -80,12 +80,11 @@ class ProfileCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = ProfileCategory::find($id);
-        if(is_null($category)){
+        try{
+            $category = ProfileCategory::findOrFail($id);
+        }catch(ModelNotFoundException $e){
             return response()->json([
-                'errors' => [
-                    'message' => 'Resource Not Found'
-                ]
+                'message' => 'Resource Not Found'
             ], 404);
         }
 
@@ -97,11 +96,10 @@ class ProfileCategoryController extends Controller
         ]);
 
         // update user
-        $updatedCategory = DB::collection('profile_categories')
-                                ->where('_id', $id)->update($request->all(), ['upsert' => true]);
+        $category->name = $request->name;
+        $category->save();
 
-        return response()->json($updatedCategory, 200);
-
+        return response()->json($category, 200);
     }
 
     /**
@@ -112,14 +110,11 @@ class ProfileCategoryController extends Controller
      */
     public function destroy($id)
     {
-        // check if exists
-        $category = ProfileCategory::find($id);
-
-        if(is_null($category)){
+        try{
+            $category = ProfileCategory::findOrFail($id);
+        }catch(ModelNotFoundException $e){
             return response()->json([
-                'errors' => [
-                    'message' => 'Resource not found'
-                ]
+                'message' => 'Resource not found'
                 ], 404);
         }
 

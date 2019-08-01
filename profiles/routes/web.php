@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,8 +15,6 @@
 $router->get('/', function () {
 
     return "Coding Rocks!";
-
-
 });
 
 // routes for profile_categories
