@@ -33,9 +33,36 @@ services:
         aliases:
           - mongo-db
   
+  # php project
+  php-project:
+    container_name: php-project
+    build:
+      context: ./application/docker
+    volumes:
+      - ./application:/var/www
+      - ./storage/app/application:/var/www/storage/app
+      - ./storage/logs/application:/var/www/storage/logs
+    restart: unless-stopped
+    ports:
+      - 8001:80
+    networks:
+      - app-network
+  
+  # mysql db
+  mysql-database:
+    container_name: mysql-database
+    image: mysql:5.7
+    env_file:
+      - ./config/db.env
+    volumes:
+      - mysqldb_data:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - app-network
 
 # volumes
 volumes:
+  mysqldb_data:
   mongodb_data:
     driver: local
 
