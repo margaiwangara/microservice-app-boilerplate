@@ -1,0 +1,45 @@
+version: "3.1"
+
+services:
+
+  # profiles microservice
+  profiles:
+    container_name: ms_profiles
+    build:
+      context: ./profiles/docker
+    volumes:
+      - ./profiles:/var/www
+      - ./storage/app/profiles:/var/www/storage/app
+      - ./storage/logs/profiles:/var/www/storage/logs
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    networks:
+      - app-network
+
+  # mongodb service
+  mongo-database:
+    container_name: mongo-database
+    image: mongo:latest
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+    env_file:
+      - ./config/db.env
+    ports:
+      - 27017:27017
+    networks:
+      app-network:
+        aliases:
+          - mongo-db
+  
+
+# volumes
+volumes:
+  mongodb_data:
+    driver: local
+
+# networks
+networks:
+  app-network:
+    driver: bridge
