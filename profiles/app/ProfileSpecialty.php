@@ -4,11 +4,11 @@ namespace App;
 
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
-class ProfileQualification extends Eloquent
+class ProfileSpecialty extends Eloquent
 {
     protected $connection = 'mongodb';
 
-    protected $collection = 'profile_qualifications';
+    protected $collection = 'profile_specialties';
 
     protected $guarded = ['profile_id'];
 }
