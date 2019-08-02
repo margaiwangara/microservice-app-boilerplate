@@ -4,7 +4,6 @@ namespace App;
 
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
-
 class Profile extends Eloquent
 {
     protected $connection = 'mongodb';
