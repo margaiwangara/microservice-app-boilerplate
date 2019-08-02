@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 const App = () => {
   return (
     <div>
-     it is so awesome...and more awesome 
+     Next js here again. Some hot reload wouldn't kill
     </div>
   )
 }
