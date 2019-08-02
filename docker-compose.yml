@@ -13,7 +13,7 @@ services:
       - ./storage/logs/profiles:/var/www/storage/logs
     restart: unless-stopped
     ports:
-      - 8000:80
+      - 8001:80
     networks:
       - app-network
 
@@ -28,7 +28,7 @@ services:
       - ./storage/logs/application:/var/www/storage/logs
     restart: unless-stopped
     ports:
-      - 8001:80
+      - 8002:80
     networks:
       - app-network
 
@@ -43,7 +43,7 @@ services:
       - ./storage/logs/countries:/var/www/storage/logs
     restart: unless-stopped
     ports:
-      - 8002:80
+      - 8003:80
     networks:
       - app-network
   
@@ -58,7 +58,18 @@ services:
       - ./storage/logs/cities:/var/www/storage/logs
     restart: unless-stopped
     ports:
-      - 8003:80
+      - 8004:80
+    networks:
+      - app-network
+
+  # frontend trial
+  frontend:
+    container_name: ms_frontend
+    build:
+      context: ./frontend
+    ports:
+      - 8000:3000
+    restart: unless-stopped
     networks:
       - app-network
 
