@@ -1,4 +1,4 @@
-FROM node:10-alpine
+FROM node:10
 
 ENV PORT 3000
 
@@ -17,6 +17,7 @@ COPY . /usr/src/app
 # Building app
 RUN npm run build
 EXPOSE 3000
+EXPOSE 49153
 
 # Running the app
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "dev"]
