@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\ProfileInfo;
+use App\ProfileQualification;
 use Illuminate\Http\Request;
 use Webpatser\Uuid\Uuid;
 
-class ProfileInfoController extends Controller
+class ProfileQualificationController extends Controller
 {
      /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class ProfileInfoController extends Controller
      */
     public function index()
     {
-        $profiles_info = ProfileInfo::paginate(10);
+        $profile_qualifications = ProfileQualification::paginate(10);
 
-        return response()->json($profiles_info, 200);
+        return response()->json($profile_qualifications, 200);
     }
 
      /**
@@ -29,22 +29,20 @@ class ProfileInfoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'address' => 'required|max:255',
-            'email' => 'required|email|max:100',
-            'phone' => 'required|max:15'
+            'title' => 'required|max:255',
+            'description' => 'required|',
+
         ],
         [
-            'address.required' => 'Please input the your :attribute',
-            'address.max' => ':attribute value must not exceed :max',
-            'email.required' => 'Please input your :attribute',
-            'email.email' => 'Please provide an :attribute',
-            'phone.required' => 'Please input your :attribute'
+            'title.required' => 'Please input the the :attribute',
+            'title.max' => ':attribute value must not exceed :max',
+            'description.required' => 'Please input the :attribute',
 
         ]);
         // add uuid to request
-        $profiles_info = ProfileInfo::create(array_merge($request->all(), ['uuid' => (string) Uuid::generate(4)]));
+        $profile_qualification = ProfileQualification::create(array_merge($request->all(), ['uuid' => (string) Uuid::generate(4)]));
 
-        return response()->json($profiles_info, 201);
+        return response()->json($profile_qualification, 201);
     }
 
      /**
@@ -56,7 +54,7 @@ class ProfileInfoController extends Controller
     public function show($id)
     {
         try{
-            $profiles_info = ProfileInfo::findOrFail($id);
+            $profile_qualification = ProfileQualification::findOrFail($id);
 
         }catch(ModelNotFoundException $e){
             return response()->json([
@@ -64,7 +62,7 @@ class ProfileInfoController extends Controller
             ], 404);
         }
 
-        return response()->json($profiles_info, 200);
+        return response()->json($profile_qualification, 200);
     }
 
       /**
@@ -77,7 +75,7 @@ class ProfileInfoController extends Controller
     public function update(Request $request, $id)
     {
         try{
-            $profiles_info = ProfileInfo::findOrFail($id);
+            $profile_qualification = ProfileQualification::findOrFail($id);
         }catch(ModelNotFoundException $e){
             return response()->json([
                 'message' => 'Resource Not Found'
@@ -85,26 +83,24 @@ class ProfileInfoController extends Controller
         }
 
         $this->validate($request, [
-            'address' => 'required|max:255',
-            'email' => 'required|email|max:100',
-            'phone' => 'required|max:15'
+            'title' => 'required|max:255',
+            'description' => 'required|',
+
         ],
         [
-            'address.required' => 'Please input the your :attribute',
-            'address.max' => ':attribute value must not exceed :max',
-            'email.required' => 'Please input your :attribute',
-            'email.email' => 'Please provide an :attribute',
-            'phone.required' => 'Please input your :attribute'
+            'title.required' => 'Please input the the :attribute',
+            'title.max' => ':attribute value must not exceed :max',
+            'description.required' => 'Please input the :attribute',
 
         ]);
 
-        // update user
-        $profiles_info->address = $request->address;
-        $profiles_info->email = $request->email;
-        $profiles_info->phone = $request->phone;
-        $profiles_info->save();
+        // update profile qualification
+        $profile_qualification->title = $request->title;
+        $profile_qualification->description = $request->description;
 
-        return response()->json($profiles_info, 200);
+        $profile_qualification->save();
+
+        return response()->json($profile_qualification, 200);
     }
 
      /**
@@ -116,14 +112,14 @@ class ProfileInfoController extends Controller
     public function destroy($id)
     {
         try{
-            $profiles_info = ProfileInfo::findOrFail($id);
+            $profile_qualification = ProfileQualification::findOrFail($id);
         }catch(ModelNotFoundException $e){
             return response()->json([
                 'message' => 'Resource not found'
                 ], 404);
         }
 
-        $profiles_info->delete();
+        $profile_qualification->delete();
 
         return response(null, 204);
     }

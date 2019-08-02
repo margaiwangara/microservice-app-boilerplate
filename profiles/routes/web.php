@@ -48,3 +48,19 @@ $router->put('/profile/{id}', [
 
 $router->delete('/profile/{id}', [
     'as' => 'profile.destroy', 'uses' => 'ProfileController@destroy']);
+
+// routes for profile info
+// $router->get('/profile', [
+//     'as' => 'profile.index', 'uses' => 'ProfileController@index']);
+
+// $router->post('/profile', [
+//     'as' => 'profile.store', 'uses' => 'ProfileController@store']);
+
+// $router->get('/profile/{id}', [
+//     'as' => 'profile.show', 'uses' => 'ProfileController@show']);
+
+// $router->put('/profile/{id}', [
+//     'as' => 'profile.update', 'uses' => 'ProfileController@update']);
+
+// $router->delete('/profile/{id}', [
+//     'as' => 'profile.destroy', 'uses' => 'ProfileController@destroy']);
