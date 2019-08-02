@@ -1,7 +1,7 @@
 version: "3.1"
 
 services:
-
+  # services
   # profiles microservice
   profiles:
     container_name: ms_profiles
@@ -17,6 +17,52 @@ services:
     networks:
       - app-network
 
+  # php project
+  php-project:
+    container_name: php-project
+    build:
+      context: ./application/docker
+    volumes:
+      - ./application:/var/www
+      - ./storage/app/application:/var/www/storage/app
+      - ./storage/logs/application:/var/www/storage/logs
+    restart: unless-stopped
+    ports:
+      - 8001:80
+    networks:
+      - app-network
+
+  # countries
+  countries:
+    container_name: ms_countries
+    build:
+      context: ./countries/docker
+    volumes:
+      - ./countries:/var/www
+      - ./storage/app/countries:/var/www/storage/app
+      - ./storage/logs/countries:/var/www/storage/logs
+    restart: unless-stopped
+    ports:
+      - 8002:80
+    networks:
+      - app-network
+  
+  # countries
+  cities:
+    container_name: ms_cities
+    build:
+      context: ./cities/docker
+    volumes:
+      - ./cities:/var/www
+      - ./storage/app/cities:/var/www/storage/app
+      - ./storage/logs/cities:/var/www/storage/logs
+    restart: unless-stopped
+    ports:
+      - 8003:80
+    networks:
+      - app-network
+
+  # databases
   # mongodb service
   mongo-database:
     container_name: mongo-database
@@ -32,37 +78,23 @@ services:
       app-network:
         aliases:
           - mongo-db
-  
-  # php project
-  php-project:
-    container_name: php-project
-    build:
-      context: ./application/docker
-    volumes:
-      - ./application:/var/www
-      - ./storage/app/application:/var/www/storage/app
-      - ./storage/logs/application:/var/www/storage/logs
-    restart: unless-stopped
-    ports:
-      - 8001:80
-    networks:
-      - app-network
-  
-  # mysql db
-  mysql-database:
-    container_name: mysql-database
+            
+  # sql db
+  sql-database:
+    container_name: sql-database
     image: mysql:5.7
     env_file:
       - ./config/db.env
     volumes:
-      - mysqldb_data:/var/lib/mysql
+      - sqldb_data:/var/lib/mysql
     restart: unless-stopped
     networks:
       - app-network
 
 # volumes
 volumes:
-  mysqldb_data:
+  sqldb_data:
+    driver: local
   mongodb_data:
     driver: local
 
