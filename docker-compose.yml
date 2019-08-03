@@ -46,7 +46,7 @@ services:
       - 8003:80
     networks:
       - app-network
-  
+
   # countries
   cities:
     container_name: ms_cities
@@ -73,7 +73,6 @@ services:
     volumes:
       - ./frontend:/usr/src/app
       - /usr/src/app/node_modules
-    command: npm run dev
     restart: unless-stopped
     networks:
       - app-network
@@ -94,7 +93,7 @@ services:
       app-network:
         aliases:
           - mongo-db
-            
+
   # sql db
   sql-database:
     container_name: sql-database

@@ -21,6 +21,9 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
+// register cors
+$app->configure('cors');
+$app->register(Barryvdh\Cors\ServiceProvider::class);
 // register mongo eloquent package
 $app->register(Jenssegers\Mongodb\MongodbServiceProvider::class);
 
@@ -60,9 +63,9 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
-// ]);
+$app->middleware([
+    \Barryvdh\Cors\HandleCors::class
+]);
 
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,

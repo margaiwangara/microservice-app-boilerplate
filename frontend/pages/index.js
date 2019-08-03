@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 const App = () => {
   return (
     <div>
-     Next js here again. Some hot reload wouldn't kill
+      <div>stop , in the name of love</div>
     </div>
-  )
-}
+  );
+};
 
 export default App;

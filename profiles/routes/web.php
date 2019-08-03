@@ -34,19 +34,19 @@ $router->delete('/categories/{id}', [
     'as' => 'categories.destroy', 'uses' => 'ProfileCategoryController@destroy']);
 
 // routes for profile
-$router->get('/profile', [
+$router->get('/profiles', [
     'as' => 'profile.index', 'uses' => 'ProfileController@index']);
 
-$router->post('/profile', [
+$router->post('/profiles', [
     'as' => 'profile.store', 'uses' => 'ProfileController@store']);
 
-$router->get('/profile/{id}', [
+$router->get('/profiles/{id}', [
     'as' => 'profile.show', 'uses' => 'ProfileController@show']);
 
-$router->put('/profile/{id}', [
+$router->put('/profiles/{id}', [
     'as' => 'profile.update', 'uses' => 'ProfileController@update']);
 
-$router->delete('/profile/{id}', [
+$router->delete('/profiles/{id}', [
     'as' => 'profile.destroy', 'uses' => 'ProfileController@destroy']);
 
 // routes for profile info
