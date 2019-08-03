@@ -1,9 +1,9 @@
 FROM node:10
 
+# Env port
 ENV PORT 3000
 
 # Setting working directory. All the path will be relative to WORKDIR
-# Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
@@ -16,8 +16,9 @@ COPY . /usr/src/app
 
 # Building app
 RUN npm run build
+
+# Expose port
 EXPOSE 3000
-EXPOSE 49153
 
 # Running the app
-CMD [ "npm", "start"]
+CMD [ "npm", "start" ]
