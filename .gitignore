@@ -1,4 +1,4 @@
-config/db.env
-storage/
-dev/
-boilerplate/
+/config/db.env
+/storage
+/dev
+/boilerplate
