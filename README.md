@@ -18,13 +18,13 @@ Developers are required to install only one software into their respective machi
 
 [Docker Desktop For Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac)
 
-###### Text Editors
+##### Text Editors
 
 [Visual Studio Code](https://code.visualstudio.com/download)
 
 [Atom](https://atom.io/)
 
-###### Git VC
+##### Git VC
 
 [Git](https://git-scm.com/)
 
