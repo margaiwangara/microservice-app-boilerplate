@@ -78,19 +78,19 @@ services:
     networks:
       - app-network
 
-  # frontend trial
-  frontend:
-    container_name: ms_frontend
-    build:
-      context: ./frontend
-    ports:
-      - 8000:3000
-    volumes:
-      - ./frontend:/usr/src/app
-      - /usr/src/app/node_modules
-    restart: unless-stopped
-    networks:
-      - app-network
+  # # frontend trial
+  # frontend:
+  #   container_name: ms_frontend
+  #   build:
+  #     context: ./frontend
+  #   ports:
+  #     - 8000:3000
+  #   volumes:
+  #     - ./frontend:/usr/src/app
+  #     - /usr/src/app/node_modules
+  #   restart: unless-stopped
+  #   networks:
+  #     - app-network
 
   # databases
   # mongodb service
@@ -117,6 +117,20 @@ services:
       - ./config/db.env
     volumes:
       - sqldb_data:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  # sql-admin
+  sql-admin:
+    container_name: sql-admin
+    image: phpmyadmin/phpmyadmin
+    env_file:
+      - ./config/db.env
+    ports:
+      - 7000:80
+    depends_on:
+      - sql-database
     restart: unless-stopped
     networks:
       - app-network
